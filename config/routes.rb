@@ -8,8 +8,9 @@ StocksInfoApp::Application.routes.draw do
 
   resources :photo
 
-
   post '/stocks' => 'stocks#create'
-  get '/stocks' => 'stocks#dashboard'
+  get '/stocks/:name' => 'stocks#show'
+
+  get '/quotes/:ticker/latest' => 'quotes#latest'
 
 end

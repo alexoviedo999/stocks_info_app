@@ -1,4 +1,11 @@
 <%= text_field_tag 'symbol' %>
 <%= button_tag 'Add Symbol' %>
 
-<div id='stocks'></div>
+<div id='stocks'>
+
+  <% @stocks.each do |stock| -%>
+  <div class="stock" data-ticker="<%= stock.name %>" data-updated="false">
+  </div>
+  <% end -%>
+
+</div>
