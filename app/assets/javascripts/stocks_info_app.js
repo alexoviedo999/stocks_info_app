@@ -1,7 +1,48 @@
 $(function(){
 
-  $('button').click(add_stock);
-  setInterval(run_dashboard, 5000);
+  $('button').click(addStock);
+  $('.stock').each(function(i) {
+    var ticker = $(this).data('ticker');
+    buildInitialGraph(ticker);
+  });
+
+
+function updateGraph(ticker, graph)
+{
+  var graphContainer = $(".stock[data-ticker='" + ticker + "']")
+  $.ajax({
+    type: "GET",
+    url: "/quotes/" + ticker + "/latest"
+  }).done(function(data) {
+
+    // THE PROBLEM...
+
+    var oldData = graph.data;
+    var newData = oldData.push(data);
+    graph.setData(newData);
+  });
+}
+
+function buildInitialGraph(ticker) {
+  var graph;
+  $.ajax({
+    type: "GET",
+    url: "/stocks/" + ticker
+  }).done(function(data) {
+    var graphContainer = $(".stock[data-ticker='" + ticker + "']")
+    graph = Morris.Line({
+              element: graphContainer,
+              data: data,
+              xkey: 'time',
+              ykeys: ['quote'],
+              labels: [ticker],
+              ymin: 'auto',
+              ymax: 'auto'
+            });
+    setInterval(updateGraph, 5000, ticker, graph);
+    graphContainer.data('updated', 'true');
+  });
+}
 
 });
 
@@ -15,15 +56,26 @@ function run_dashboard()
   });
 }
 
-function add_stock()
-{
+function addStock() {
   $.ajax({
     type: "POST",
     url: "/stocks",
     data: { name: $('input').val() }
-  }).done(function( msg ) {
-  });
+  }).done(function(msg) {});
 }
+
+// function renderStocks(data, type) {
+//   var morrisDefaultOptions = {
+//     element: stock,
+//     xkey: 'created_at',
+//     ykeys: ['quote'],
+//     ymin: 'auto',
+//     ymax: 'auto'
+//   };
+//   if (type === 'line') {
+
+//   }
+// };
 
 function render_stocks(data)
 {
@@ -34,10 +86,10 @@ function render_stocks(data)
     stock = $('<div>');
     stock.addClass('stock');
     $('#stocks').append(stock);
-    Morris.Line({
+    Morris.Bar({
       element: stock,
       data: data[property],
-      xkey: 'created_at',
+      xkey: 'time',
       ykeys: ['quote'],
       labels: [property],
       ymin: 'auto',
