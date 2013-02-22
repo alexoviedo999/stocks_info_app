@@ -26,10 +26,15 @@
 
 .stock
 {
-  border: 1px solid #757575;
+  border: 1px solid red;
   padding: 25px;
   margin: 25px;
   width: 500px;
   height: 200px;
   float: left;
+}
+
+body {
+  color: #0e151e;
+  font-family: Lucida Console, Monaco, monospace;
 }
