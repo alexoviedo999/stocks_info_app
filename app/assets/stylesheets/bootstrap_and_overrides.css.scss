@@ -10,7 +10,14 @@ body {
 .content {
   background-color: #0e151e;
   font-family: Lucida Console, Monaco, monospace;
-
+  padding: 20px;
+  margin: 0 -20px; /* negative indent the amount of the padding to maintain the grid system */
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,.15);
 }
 
 .stock
@@ -20,18 +27,49 @@ body {
   padding: 25px;
   margin: 25px;
   width: 500px;
-  height: 200px;
+  height: 250px;
   float: left;
   background-color: #0e151e;
 }
 
-#stock
-{
-  background-color: red;
-}
 
-.navbar .container
+.navbar
 {
   background-color: #0e151e;
   color: white;
+  border: 1px solid #5f96b7;
+}
+
+.container
+{
+  background-color: #0e151e;
+  color: white;
+
+}
+
+nav.navbar-inner
+{
+  border: 1px solid #5f96b7;
+  color: white;
+  border-radius: 10px;
+}
+
+.content {
+  border-radius: 10px;
+}
+
+.stock
+{
+  border: 1px solid #5f96b7;
+  padding: 25px;
+  margin: 25px;
+  width: 500px;
+  height: 200px;
+  float: left;
+}
+
+body {
+  color: #0e151e;
+  font-family: Lucida Console, Monaco, monospace;
+
 }
